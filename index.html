@@ -1,94 +1,29 @@
-<!doctype html>
+
+<!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Kana Duel — Pack complet</title>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kana Duel</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="bg-orbs"><div class="orb orb-a"></div><div class="orb orb-b"></div><div class="orb orb-c"></div></div>
-  <main class="app">
-    <header class="topbar">
-      <h1>🎴 Kana Duel — Pack complet</h1>
-      <div class="controls">
-        <button id="toggle-theme" class="icon-btn" title="Thème clair/sombre">🌓</button>
-        <button id="toggle-sound" class="icon-btn" title="Son">🔊</button>
-        <button id="howto" class="icon-btn" title="Comment jouer ?">❔</button>
-      </div>
-    </header>
-
-    <section class="board glass">
-      <div id="mode-select" class="mode-select">
-        <h2>Choisis ton écriture</h2>
-        <div class="mode-buttons">
-          <button class="pill" data-mode="hiragana">Hiragana ひらがな</button>
-          <button class="pill" data-mode="katakana">Katakana カタカナ</button>
-          <button class="pill outline" data-mode="mix">Mix des deux</button>
+<div class="container">
+    <h1>Kana Duel</h1>
+    <div id="mode-select" class="mode-select">
+        <button onclick="startGame('hiragana')">Hiragana</button>
+        <button onclick="startGame('katakana')">Katakana</button>
+    </div>
+    <div id="game" class="game" style="display:none;">
+        <div class="status-bar">
+            <div>Score: <span id="score">0</span></div>
+            <div>Temps: <span id="timer">60</span>s</div>
         </div>
-        <details class="options"><summary>Options</summary>
-          <div class="opt-grid">
-            <label class="switch"><input type="checkbox" id="opt-timer" /> <span>Chrono 60s</span></label>
-            <label class="switch"><input type="checkbox" id="opt-hard" /> <span>Pièges look-alike</span></label>
-          </div>
-        </details>
-      </div>
-
-      <div id="game" class="game hide" role="application" aria-live="polite">
-        <div class="hud">
-          <div class="hud-item"><div class="label">Score</div><div class="value" id="score">0</div></div>
-          <div class="hud-item"><div class="label">Série</div><div class="value" id="streak">0</div></div>
-          <div class="hud-item"><div class="label">Meilleur</div><div class="value" id="best">0</div></div>
-          <div class="hud-item"><div class="label">Temps</div><div class="value" id="timer">∞</div></div>
-        </div>
-
-        <div class="card">
-          <div class="kana" id="kana">あ</div>
-          <div class="example" id="example"></div>
-        </div>
-
-        <div class="choices">
-          <button class="choice" id="choiceA">a</button>
-          <button class="choice" id="choiceB">o</button>
-        </div>
-
-        <div class="footer">
-          <button id="skip" class="ghost">Passer ↷</button>
-          <button id="end" class="danger">Terminer ✕</button>
-        </div>
-      </div>
-
-      <div id="results" class="results hide">
-        <h2>🎉 Fin de partie !</h2>
-        <p id="summary"></p>
-        <div class="results-actions">
-          <button class="pill" id="again">Rejouer</button>
-          <button class="pill outline" id="back">Changer de mode</button>
-        </div>
-        <div id="history" class="history"></div>
-      </div>
-    </section>
-
-    <footer class="credits">
-      <span>Créé pour Léon — Pack complet : dakuten, handakuten & combinaisons. ✨</span>
-      <a href="#" id="export" class="link">Exporter historique (.json)</a>
-    </footer>
-  </main>
-
-  <canvas id="fx" class="fx"></canvas>
-
-  <dialog id="modal">
-    <h3>Comment jouer</h3>
-    <p>Choisis Hiragana ou Katakana (ou mix). À chaque tour, lis le kana affiché et choisis la bonne transcription <i>rōmaji</i> parmi deux choix. L'exemple montre un mot utilisant le kana.</p>
-    <ul>
-      <li><b>Chrono</b> : 60s pour marquer le max de points.</li>
-      <li><b>Look-alike</b> : pièges visuels (ex : ソ vs ン).</li>
-    </ul>
-    <div class="modal-actions"><button id="close-modal" class="pill">C’est parti</button></div>
-  </dialog>
-
-  <script src="app.js"></script>
+        <div id="kana-display" class="kana-display"></div>
+        <div id="choices" class="choices"></div>
+        <div id="example-word" class="example-word"></div>
+    </div>
+</div>
+<script src="app.js"></script>
 </body>
 </html>
