@@ -156,12 +156,38 @@ function handleChoice(which){
   const val = btn.textContent;
   const correct = val === current.answer;
   const other = which === 'A' ? choiceB : choiceA;
-  if(correct){ score++; streak++; visualBurst('ok'); if(soundOn) ding(880,.05); btn.classList.add('correct'); }
-  else { streak = 0; visualBurst('no'); if(soundOn) buzz(); btn.classList.add('wrong'); other.classList.add('correct'); }
-  scoreEl.textContent = String(score); streakEl.textContent = String(streak);
-  history.push({kana:current.kana, answer:current.answer, picked:val, ok:correct, example:current.example});
-  setTimeout(()=>{ exampleEl.innerHTML = current.example.word ? `<strong>${current.example.word}</strong> — ${current.example.wordR} : ${current.example.wordFR}` : ''; }, 220);
-  setTimeout(next, 520);
+
+  if(correct){
+    score++; streak++;
+    visualBurst('ok');
+    if(soundOn) ding(880,.05);
+    btn.classList.add('correct');
+  } else {
+    streak = 0;
+    visualBurst('no');
+    if(soundOn) buzz();
+    btn.classList.add('wrong');
+    other.classList.add('correct');
+  }
+
+  scoreEl.textContent = String(score);
+  streakEl.textContent = String(streak);
+
+  history.push({
+    kana: current.kana,
+    answer: current.answer,
+    picked: val,
+    ok: correct,
+    example: current.example
+  });
+
+  // 👉 Affiche l'exemple immédiatement
+  exampleEl.innerHTML = current.example.word
+    ? `<strong>${current.example.word}</strong> — ${current.example.wordR} : ${current.example.wordFR}`
+    : '';
+
+  // 👉 Attend 2 secondes avant d'afficher la suite
+  setTimeout(next, 2000);
 }
 choiceA.addEventListener('click', ()=> handleChoice('A'));
 choiceB.addEventListener('click', ()=> handleChoice('B'));
